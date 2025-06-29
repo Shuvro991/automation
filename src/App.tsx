@@ -1,173 +1,241 @@
 import React from 'react';
-import { FileText, Folder, Code, Download, Copy, CheckCircle } from 'lucide-react';
+import { FileText, Folder, Code, Download, Copy, CheckCircle, ArrowRight, FolderPlus } from 'lucide-react';
 
 function App() {
-  const kotlinFiles = [
-    { name: 'MainActivity.kt', path: 'kotlin-source/MainActivity.kt', type: 'main' },
-    { name: 'Color.kt', path: 'kotlin-source/ui/theme/Color.kt', type: 'theme' },
-    { name: 'Theme.kt', path: 'kotlin-source/ui/theme/Theme.kt', type: 'theme' },
-    { name: 'Type.kt', path: 'kotlin-source/ui/theme/Type.kt', type: 'theme' },
-    { name: 'GoogleAuthManager.kt', path: 'kotlin-source/auth/GoogleAuthManager.kt', type: 'auth' },
-    { name: 'ModelManager.kt', path: 'kotlin-source/ml/ModelManager.kt', type: 'ml' },
-    { name: 'InstructionLLM.kt', path: 'kotlin-source/ml/InstructionLLM.kt', type: 'ml' },
-    { name: 'MultimodalLLM.kt', path: 'kotlin-source/ml/MultimodalLLM.kt', type: 'ml' },
-    { name: 'PermissionManager.kt', path: 'kotlin-source/utils/PermissionManager.kt', type: 'utils' },
-    { name: 'Constants.kt', path: 'kotlin-source/utils/Constants.kt', type: 'utils' },
+  const structureSteps = [
+    {
+      step: 1,
+      title: "Create Folder Structure in Android Studio",
+      description: "You need to create these folders (packages) in your Android Studio project",
+      icon: "📁",
+      color: "bg-blue-50 border-blue-200"
+    },
+    {
+      step: 2,
+      title: "Copy Kotlin Files to Matching Folders",
+      description: "Each .kt file goes into its corresponding folder you created",
+      icon: "📄",
+      color: "bg-green-50 border-green-200"
+    },
+    {
+      step: 3,
+      title: "Build and Run Your App",
+      description: "After copying all files, sync and run your Android project",
+      icon: "🚀",
+      color: "bg-orange-50 border-orange-200"
+    }
   ];
 
-  const getTypeColor = (type) => {
-    switch (type) {
-      case 'main': return 'bg-orange-100 text-orange-800';
-      case 'theme': return 'bg-purple-100 text-purple-800';
-      case 'auth': return 'bg-blue-100 text-blue-800';
-      case 'ml': return 'bg-green-100 text-green-800';
-      case 'utils': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+  const folderMappings = [
+    {
+      folder: "ui/theme/",
+      files: ["Color.kt", "Theme.kt", "Type.kt"],
+      description: "App colors, themes, and typography",
+      icon: "🎨"
+    },
+    {
+      folder: "ui/screens/",
+      files: ["LoginScreen.kt", "HomeScreen.kt", "WorkflowScreen.kt", "ModelScreen.kt"],
+      description: "All app screens and pages",
+      icon: "📱"
+    },
+    {
+      folder: "ui/components/",
+      files: ["ModelCard.kt", "WorkflowCard.kt"],
+      description: "Reusable UI components",
+      icon: "🧩"
+    },
+    {
+      folder: "auth/",
+      files: ["GoogleAuthManager.kt"],
+      description: "Google authentication logic",
+      icon: "🔐"
+    },
+    {
+      folder: "ml/",
+      files: ["InstructionLLM.kt", "MultimodalLLM.kt", "ModelManager.kt"],
+      description: "AI model integration",
+      icon: "🤖"
+    },
+    {
+      folder: "utils/",
+      files: ["PermissionManager.kt", "Constants.kt"],
+      description: "Helper functions and constants",
+      icon: "🛠️"
     }
-  };
-
-  const getTypeIcon = (type) => {
-    switch (type) {
-      case 'main': return '🚀';
-      case 'theme': return '🎨';
-      case 'auth': return '🔐';
-      case 'ml': return '🤖';
-      case 'utils': return '🛠️';
-      default: return '📄';
-    }
-  };
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 p-6">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-500 rounded-full mb-4">
-            <Code className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-500 rounded-full mb-4">
+            <Folder className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            📁 Kotlin Source Files Location
+            📁 Project Structure Explained
           </h1>
           <p className="text-xl text-gray-600">
-            Your Android Kotlin files are in the <span className="font-mono bg-yellow-100 px-2 py-1 rounded">kotlin-source/</span> folder
+            How to organize your Android Studio project folders and files
           </p>
         </div>
 
-        {/* Alert Box */}
-        <div className="bg-green-50 border-l-4 border-green-400 p-6 mb-8 rounded-r-lg">
+        {/* What This Means */}
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8 rounded-r-lg">
           <div className="flex items-center">
-            <CheckCircle className="w-6 h-6 text-green-400 mr-3" />
+            <CheckCircle className="w-6 h-6 text-yellow-400 mr-3" />
             <div>
-              <h3 className="text-lg font-semibold text-green-800">Found Your Files! ✅</h3>
-              <p className="text-green-700 mt-1">
-                All your Kotlin source files are located in the <strong>kotlin-source/</strong> directory. 
-                Click on any file below to view its content.
+              <h3 className="text-lg font-semibold text-yellow-800">What "Project Structure" Means</h3>
+              <p className="text-yellow-700 mt-1">
+                This shows you <strong>how to organize folders</strong> in your Android Studio project. 
+                It's like a blueprint for where each file should go.
               </p>
             </div>
           </div>
         </div>
 
-        {/* File Structure */}
+        {/* Process Steps */}
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
+          {structureSteps.map((step, index) => (
+            <div key={index} className={`${step.color} border-2 rounded-xl p-6`}>
+              <div className="flex items-center mb-4">
+                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-sm font-bold text-gray-700 mr-3">
+                  {step.step}
+                </div>
+                <span className="text-2xl">{step.icon}</span>
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2">{step.title}</h3>
+              <p className="text-gray-700 text-sm">{step.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Visual Structure */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            <Folder className="w-6 h-6 mr-2 text-blue-500" />
-            Project Structure
+            <Code className="w-6 h-6 mr-2 text-indigo-500" />
+            Android Studio Folder Structure
           </h2>
           
-          <div className="bg-gray-50 rounded-lg p-4 font-mono text-sm">
-            <div className="text-gray-600">📁 kotlin-source/</div>
-            <div className="ml-4 text-gray-600">├── 📄 MainActivity.kt</div>
-            <div className="ml-4 text-gray-600">├── 📁 ui/</div>
-            <div className="ml-8 text-gray-600">└── 📁 theme/</div>
-            <div className="ml-12 text-gray-600">├── 📄 Color.kt</div>
-            <div className="ml-12 text-gray-600">├── 📄 Theme.kt</div>
-            <div className="ml-12 text-gray-600">└── 📄 Type.kt</div>
-            <div className="ml-4 text-gray-600">├── 📁 auth/</div>
-            <div className="ml-8 text-gray-600">└── 📄 GoogleAuthManager.kt</div>
-            <div className="ml-4 text-gray-600">├── 📁 ml/</div>
-            <div className="ml-8 text-gray-600">├── 📄 ModelManager.kt</div>
-            <div className="ml-8 text-gray-600">├── 📄 InstructionLLM.kt</div>
-            <div className="ml-8 text-gray-600">└── 📄 MultimodalLLM.kt</div>
-            <div className="ml-4 text-gray-600">└── 📁 utils/</div>
-            <div className="ml-8 text-gray-600">├── 📄 PermissionManager.kt</div>
-            <div className="ml-8 text-gray-600">└── 📄 Constants.kt</div>
+          <div className="bg-gray-50 rounded-lg p-6 font-mono text-sm">
+            <div className="text-gray-800 font-semibold mb-2">📁 app/src/main/java/com/yourname/autoflowai/</div>
+            <div className="ml-4 space-y-1">
+              <div className="text-gray-600">├── 📄 MainActivity.kt</div>
+              <div className="text-gray-600">├── 📁 ui/</div>
+              <div className="ml-4 space-y-1">
+                <div className="text-gray-600">│   ├── 📁 theme/</div>
+                <div className="ml-4 space-y-1">
+                  <div className="text-gray-500">│   │   ├── 📄 Color.kt</div>
+                  <div className="text-gray-500">│   │   ├── 📄 Theme.kt</div>
+                  <div className="text-gray-500">│   │   └── 📄 Type.kt</div>
+                </div>
+                <div className="text-gray-600">│   ├── 📁 screens/</div>
+                <div className="text-gray-600">│   └── 📁 components/</div>
+              </div>
+              <div className="text-gray-600">├── 📁 auth/</div>
+              <div className="text-gray-600">├── 📁 ml/</div>
+              <div className="text-gray-600">└── 📁 utils/</div>
+            </div>
           </div>
         </div>
 
-        {/* Files List */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
+        {/* Folder Mappings */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            <FileText className="w-6 h-6 mr-2 text-green-500" />
-            Available Kotlin Files
+            <FolderPlus className="w-6 h-6 mr-2 text-green-500" />
+            What Goes Where
           </h2>
           
           <div className="grid gap-4">
-            {kotlinFiles.map((file, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <div className="flex items-center space-x-4">
-                  <div className="text-2xl">{getTypeIcon(file.type)}</div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{file.name}</h3>
-                    <p className="text-sm text-gray-500 font-mono">{file.path}</p>
+            {folderMappings.map((mapping, index) => (
+              <div key={index} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start space-x-4">
+                    <div className="text-2xl">{mapping.icon}</div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 mb-1">
+                        📁 {mapping.folder}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-2">{mapping.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {mapping.files.map((file, fileIndex) => (
+                          <span key={fileIndex} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-md font-mono">
+                            {file}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getTypeColor(file.type)}`}>
-                    {file.type.toUpperCase()}
-                  </span>
-                  <button className="flex items-center space-x-1 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors text-sm">
-                    <Copy className="w-4 h-4" />
-                    <span>View File</span>
-                  </button>
+                  <ArrowRight className="w-5 h-5 text-gray-400 mt-1" />
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Instructions */}
-        <div className="bg-blue-50 rounded-xl p-6 mt-8">
-          <h3 className="text-xl font-bold text-blue-900 mb-4">🚀 How to Use These Files:</h3>
-          <div className="space-y-3 text-blue-800">
+        {/* Step by Step Instructions */}
+        <div className="bg-indigo-50 rounded-xl p-6 mb-8">
+          <h3 className="text-xl font-bold text-indigo-900 mb-4">🎯 Step-by-Step Instructions:</h3>
+          <div className="space-y-4 text-indigo-800">
             <div className="flex items-start space-x-3">
-              <span className="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</span>
-              <p><strong>Click on any file</strong> in the project file list (left panel) that starts with <code className="bg-blue-100 px-1 rounded">kotlin-source/</code></p>
+              <span className="bg-indigo-200 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
+              <div>
+                <p className="font-semibold">Create Folders in Android Studio</p>
+                <p className="text-sm">Right-click your package → New → Package → Create: ui, auth, ml, utils, etc.</p>
+              </div>
             </div>
             <div className="flex items-start space-x-3">
-              <span className="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</span>
-              <p><strong>Copy the entire content</strong> of each file (Ctrl+A, then Ctrl+C)</p>
+              <span className="bg-indigo-200 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
+              <div>
+                <p className="font-semibold">Copy Files from kotlin-source/</p>
+                <p className="text-sm">Each .kt file in kotlin-source/ goes to its matching folder in Android Studio</p>
+              </div>
             </div>
             <div className="flex items-start space-x-3">
-              <span className="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">3</span>
-              <p><strong>Create the same file</strong> in your Android Studio project</p>
-            </div>
-            <div className="flex items-start space-x-3">
-              <span className="bg-blue-200 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">4</span>
-              <p><strong>Paste the content</strong> into your new Android Studio file</p>
+              <span className="bg-indigo-200 text-indigo-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
+              <div>
+                <p className="font-semibold">Sync and Build</p>
+                <p className="text-sm">Click "Sync Now" in Android Studio, then build and run your app</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Quick Links */}
-        <div className="grid md:grid-cols-2 gap-6 mt-8">
+        {/* Quick Reference */}
+        <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg p-6 shadow-md">
-            <h4 className="font-bold text-gray-900 mb-3">📚 Setup Guides Available:</h4>
+            <h4 className="font-bold text-gray-900 mb-3 flex items-center">
+              <FileText className="w-5 h-5 mr-2 text-blue-500" />
+              Available Setup Guides:
+            </h4>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li>• <code>EASY_SETUP.md</code> - 5-minute setup</li>
-              <li>• <code>SETUP_GUIDE.md</code> - Complete guide</li>
-              <li>• <code>FOLDER_CREATION_GUIDE.md</code> - How to create folders</li>
+              <li>• <code className="bg-gray-100 px-1 rounded">EASY_SETUP.md</code> - 5-minute quick setup</li>
+              <li>• <code className="bg-gray-100 px-1 rounded">FOLDER_CREATION_GUIDE.md</code> - How to create folders</li>
+              <li>• <code className="bg-gray-100 px-1 rounded">SETUP_GUIDE.md</code> - Complete detailed guide</li>
             </ul>
           </div>
           
           <div className="bg-white rounded-lg p-6 shadow-md">
-            <h4 className="font-bold text-gray-900 mb-3">🎯 What You'll Get:</h4>
+            <h4 className="font-bold text-gray-900 mb-3 flex items-center">
+              <CheckCircle className="w-5 h-5 mr-2 text-green-500" />
+              What You'll Get:
+            </h4>
             <ul className="space-y-2 text-sm text-gray-600">
               <li>• Beautiful Material Design 3 UI</li>
               <li>• Working AI model interfaces</li>
               <li>• Google authentication setup</li>
-              <li>• Complete workflow system</li>
+              <li>• Complete workflow automation system</li>
             </ul>
           </div>
+        </div>
+
+        {/* Final Note */}
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-8">
+          <p className="text-green-800 text-center">
+            <strong>Remember:</strong> The "Project Structure" is just a <strong>folder organization guide</strong>. 
+            Create these folders in Android Studio, then copy the matching .kt files from kotlin-source/ into them!
+          </p>
         </div>
       </div>
     </div>
