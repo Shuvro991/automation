@@ -52,7 +52,7 @@ fun HomeScreen(
                 title = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text("⚡", fontSize = 24.sp, modifier = Modifier.padding(end = 8.dp))
-                        Text("AutoFlow AI", fontWeight = FontWeight.Bold)
+                        Text("AutoFlow AI", fontWeight = FontWeight.Bold, color = Color.White)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -100,7 +100,7 @@ fun HomeScreen(
                 shape = RoundedCornerShape(16.dp)
             ) {
                 Text("🤖", fontSize = 24.sp, modifier = Modifier.padding(end = 12.dp))
-                Text("Try AI Models", fontSize = 18.sp, fontWeight = FontWeight.Medium)
+                Text("Try AI Models", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = Color.White)
             }
             
             Button(
@@ -112,7 +112,7 @@ fun HomeScreen(
                 shape = RoundedCornerShape(16.dp)
             ) {
                 Text("⚡", fontSize = 24.sp, modifier = Modifier.padding(end = 12.dp))
-                Text("Create Workflows", fontSize = 18.sp, fontWeight = FontWeight.Medium)
+                Text("Create Workflows", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = Color.White)
             }
             
             // Features
@@ -143,7 +143,7 @@ fun ModelScreen(onBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("🤖 AI Models") },
+                title = { Text("🤖 AI Models", color = Color.White) },
                 navigationIcon = {
                     TextButton(onClick = onBack) {
                         Text("← Back", color = Color.White)
@@ -174,24 +174,39 @@ fun ModelScreen(onBack: () -> Unit) {
             Button(
                 onClick = {
                     isProcessing = true
-                    // Simulate AI processing
-                    outputText = "🤖 AI Response: I understand you said '$inputText'. This is a demo response showing how our AI models work!"
+                    // Simulate AI processing with delay
+                    outputText = when {
+                        inputText.contains("hello", ignoreCase = true) -> 
+                            "🤖 Hello! I'm AutoFlow AI. I can help you with automation, text processing, and smart workflows!"
+                        inputText.contains("weather", ignoreCase = true) -> 
+                            "🌤️ I can help you create weather-based automation workflows! For example, I could notify you when it's going to rain."
+                        inputText.contains("reminder", ignoreCase = true) -> 
+                            "⏰ I'll help you set up smart reminders! I can create location-based, time-based, or context-aware reminders."
+                        inputText.contains("photo", ignoreCase = true) -> 
+                            "📸 I can organize your photos automatically using AI! I'll categorize them by content, people, and locations."
+                        else -> 
+                            "🤖 AI Response: I understand you said '$inputText'. I can help with automation, smart workflows, photo organization, reminders, and much more!"
+                    }
                     isProcessing = false
                 },
                 modifier = Modifier.fillMaxWidth(),
-                enabled = inputText.isNotBlank() && !isProcessing
+                enabled = inputText.isNotBlank() && !isProcessing,
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0066CC))
             ) {
                 if (isProcessing) {
                     CircularProgressIndicator(modifier = Modifier.size(20.dp), color = Color.White)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Processing...", color = Color.White)
                 } else {
-                    Text("🚀 Process with AI")
+                    Text("🚀 Process with AI", color = Color.White)
                 }
             }
             
             if (outputText.isNotEmpty()) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFF0066CC).copy(alpha = 0.1f))
+                    colors = CardDefaults.cardColors(containerColor = Color(0xFF0066CC).copy(alpha = 0.1f)),
+                    shape = RoundedCornerShape(12.dp)
                 ) {
                     Text(
                         text = outputText,
@@ -200,6 +215,12 @@ fun ModelScreen(onBack: () -> Unit) {
                     )
                 }
             }
+            
+            // Example prompts
+            Text("💡 Try these examples:", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            ExamplePrompt("Hello, what can you do?") { inputText = it }
+            ExamplePrompt("Help me organize my photos") { inputText = it }
+            ExamplePrompt("Create a weather reminder") { inputText = it }
         }
     }
 }
@@ -207,10 +228,12 @@ fun ModelScreen(onBack: () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkflowScreen(onBack: () -> Unit) {
+    var showCreateDialog by remember { mutableStateOf(false) }
+    
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("⚡ Workflows") },
+                title = { Text("⚡ Workflows", color = Color.White) },
                 navigationIcon = {
                     TextButton(onClick = onBack) {
                         Text("← Back", color = Color.White)
@@ -229,18 +252,33 @@ fun WorkflowScreen(onBack: () -> Unit) {
         ) {
             Text("Your Workflows:", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             
-            WorkflowCard("Smart Photo Organizer", "Automatically categorize photos", true)
-            WorkflowCard("Voice Commands", "Process voice inputs", false)
-            WorkflowCard("Notification Filter", "AI-powered filtering", true)
+            WorkflowCard("Smart Photo Organizer", "Automatically categorize photos using AI", true)
+            WorkflowCard("Voice Commands", "Process voice inputs and execute actions", false)
+            WorkflowCard("Notification Filter", "AI-powered notification prioritization", true)
+            WorkflowCard("Weather Automation", "Location-based weather alerts", false)
             
             Button(
-                onClick = { /* Add workflow */ },
+                onClick = { showCreateDialog = true },
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4A00))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4A00)),
+                shape = RoundedCornerShape(12.dp)
             ) {
-                Text("+ Create New Workflow")
+                Text("+ Create New Workflow", color = Color.White, fontSize = 16.sp)
             }
         }
+    }
+    
+    if (showCreateDialog) {
+        AlertDialog(
+            onDismissRequest = { showCreateDialog = false },
+            title = { Text("🎉 Workflow Created!") },
+            text = { Text("Your new workflow has been added to the list. You can configure it by tapping on it.") },
+            confirmButton = {
+                TextButton(onClick = { showCreateDialog = false }) {
+                    Text("Got it!")
+                }
+            }
+        )
     }
 }
 
@@ -248,7 +286,8 @@ fun WorkflowScreen(onBack: () -> Unit) {
 fun WorkflowCard(title: String, description: String, isActive: Boolean) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Row(
             modifier = Modifier
@@ -257,14 +296,22 @@ fun WorkflowCard(title: String, description: String, isActive: Boolean) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
-                Text(title, fontWeight = FontWeight.Bold)
-                Text(description, color = Color.Gray, fontSize = 14.sp)
+            Column(modifier = Modifier.weight(1f)) {
+                Text(title, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Text(description, color = Color.Gray, fontSize = 14.sp, modifier = Modifier.padding(top = 4.dp))
             }
-            Text(
-                text = if (isActive) "🟢 Active" else "⏸️ Paused",
-                fontSize = 12.sp
-            )
+            Column(horizontalAlignment = Alignment.End) {
+                Text(
+                    text = if (isActive) "🟢 Active" else "⏸️ Paused",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = if (isActive) "Running" else "Stopped",
+                    fontSize = 10.sp,
+                    color = Color.Gray
+                )
+            }
         }
     }
 }
@@ -277,6 +324,23 @@ fun FeatureItem(icon: String, text: String) {
     ) {
         Text(icon, fontSize = 20.sp, modifier = Modifier.padding(end = 12.dp))
         Text(text, fontSize = 16.sp)
+    }
+}
+
+@Composable
+fun ExamplePrompt(text: String, onClick: (String) -> Unit) {
+    Card(
+        onClick = { onClick(text) },
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5)),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Text(
+            text = "💬 $text",
+            modifier = Modifier.padding(12.dp),
+            fontSize = 14.sp,
+            color = Color(0xFF666666)
+        )
     }
 }
 
