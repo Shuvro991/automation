@@ -1,4 +1,4 @@
-package com.yourname.zapierclone.utils
+package com.yourname.autoflowai.utils
 
 import android.Manifest
 import android.app.Activity

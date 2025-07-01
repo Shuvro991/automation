@@ -1,4 +1,4 @@
-package com.yourname.zapierclone.utils
+package com.yourname.autoflowai.utils
 
 object Constants {
     // App Configuration
@@ -6,11 +6,11 @@ object Constants {
     const val APP_VERSION = "1.0.0"
     
     // Database
-    const val DATABASE_NAME = "zapier_clone_db"
+    const val DATABASE_NAME = "autoflow_ai_db"
     const val DATABASE_VERSION = 1
     
     // Shared Preferences
-    const val PREFS_NAME = "zapier_clone_prefs"
+    const val PREFS_NAME = "autoflow_ai_prefs"
     const val PREF_USER_LOGGED_IN = "user_logged_in"
     const val PREF_FIRST_LAUNCH = "first_launch"
     

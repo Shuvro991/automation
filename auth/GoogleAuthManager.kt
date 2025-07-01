@@ -1,4 +1,4 @@
-package com.yourname.zapierclone.auth
+package com.yourname.autoflowai.auth
 
 import android.app.Activity
 import android.content.Context

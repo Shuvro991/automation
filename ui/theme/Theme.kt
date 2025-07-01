@@ -1,4 +1,4 @@
-package com.yourname.zapierclone.ui.theme
+package com.yourname.autoflowai.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -16,11 +16,11 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = ZapierOrange,
-    secondary = ZapierBlue,
-    tertiary = ZapierGreen,
-    background = ZapierGrayDark,
-    surface = ZapierGray,
+    primary = AutoFlowOrange,
+    secondary = AutoFlowBlue,
+    tertiary = AutoFlowGreen,
+    background = AutoFlowGrayDark,
+    surface = AutoFlowGray,
     onPrimary = androidx.compose.ui.graphics.Color.White,
     onSecondary = androidx.compose.ui.graphics.Color.White,
     onTertiary = androidx.compose.ui.graphics.Color.White,
@@ -29,20 +29,20 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = ZapierOrange,
-    secondary = ZapierBlue,
-    tertiary = ZapierGreen,
+    primary = AutoFlowOrange,
+    secondary = AutoFlowBlue,
+    tertiary = AutoFlowGreen,
     background = androidx.compose.ui.graphics.Color.White,
-    surface = ZapierGrayLight,
+    surface = AutoFlowGrayLight,
     onPrimary = androidx.compose.ui.graphics.Color.White,
     onSecondary = androidx.compose.ui.graphics.Color.White,
     onTertiary = androidx.compose.ui.graphics.Color.White,
-    onBackground = ZapierGrayDark,
-    onSurface = ZapierGrayDark,
+    onBackground = AutoFlowGrayDark,
+    onSurface = AutoFlowGrayDark,
 )
 
 @Composable
-fun ZapierCloneTheme(
+fun AutoFlowAITheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit

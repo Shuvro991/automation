@@ -1,4 +1,4 @@
-package com.yourname.zapierclone.ml
+package com.yourname.autoflowai.ml
 
 import android.content.Context
 import kotlinx.coroutines.delay
